@@ -5,8 +5,6 @@ List of http static server one-liners
 
 Each of these commands will run an ad hoc http static server in your current (or specified) directory, available at http://localhost:8000. Use this power wisely.
 
-[Discussion on reddit](http://www.reddit.com/r/webdev/comments/1fs45z/list_of_ad_hoc_http_server_oneliners/).
-
 ### Python 2.x
 
 ```shell
@@ -144,9 +142,50 @@ Depends on [IIS Express](http://www.iis.net/learn/extensions/introduction-to-iis
 
 *No directory listings. `/path` must be an absolute path.*
   
-    
-    
-  
+### Clojure
+```
+$ lein simpleton 8080
+```
+### Spark(Go)
+```
+$ go get github.com/rif/spark
+$ spark -port 8000 .
+``` 
+### PowerShell
+```
+$Hso=New-Object Net.HttpListener;$Hso.Prefixes.Add("http://+:8000/");$Hso.Start();While ($Hso.IsListening){$HC=$Hso.GetContext();$HRes=$HC.Response;$HRes.Headers.Add("Content-Type","text/plain");$Buf=[Text.Encoding]::UTF8.GetBytes((GC (Join-Path $Pwd ($HC.Request).RawUrl)));$HRes.ContentLength64=$Buf.Length;$HRes.OutputStream.Write($Buf,0,$Buf.Length);$HRes.Close()};$Hso.Stop()
+```
+### NPM
+```
+$ npm install -g beefy
+$ beefy
+```
+### Rack (ruby)
+```
+gem install rack --no-ri --no-rdoc
+rackup -b 'use Rack::Static, :index => 'README.html'; run Rack::File.new('.')"
+```
+### Djangothis (Python)
+```
+$ pip install djangothis
+$ djangothis
+```
+### OCaml
+```
+$ opam install cohttp async
+$ cohttp-server-async
+```
+### Docker
+```
+docker run -d -p 8080:80 --name my-apache-app -v "$PWD":/usr/local/apache2/htdocs/ httpd:2.4-alpine
+```
+### R
+
+Using the servr package:
+```
+$ Rscript -e 'servr::httd()' -p8000
+```
+
 License
 ----------------
 MIT
